@@ -1,5 +1,5 @@
 upstream BUILD_NUMBER {
- server LXC_IP:SERVICE_PORT;
+ server LXC_IP:8069;
 }
 
 server {
