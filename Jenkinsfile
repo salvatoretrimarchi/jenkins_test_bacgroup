@@ -2,7 +2,7 @@ node {
     stage('Build') {
         echo 'Building..'
         parallel (
-            "Odoo-Account": {
+            "Odoo Account": {
                 dir('Odoo-Account'){
                     git branch: 't10.0', depth: '1', url: 'http://bitbucket.org/bacgroup/odoo-account.git'
                 }
@@ -32,11 +32,11 @@ node {
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-panama-fiscal-printer'
                 }
              },
-             "Odoo fiscal printer": {
+             /* "Odoo fiscal printer": {
                 dir('odoo-fiscal-printer'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-fiscal-printer'
                 }
-             },
+             },*/
              "Odoo Honduras": {
                 dir('odoo-honduras'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-honduras'
@@ -82,11 +82,11 @@ node {
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-drugstore'
                 }
              },
-             "VITT Icons": {
+             /* "VITT Icons": {
                 dir('vitt-icons'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/vitt_icons'
                 }
-             },
+             },*/
              "Odoo Partner": {
                 dir('odoo-partner'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-partner'
@@ -97,11 +97,11 @@ node {
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-crm'
                 }
              },
-             "VITT FiscalSeq Stock": {
+            /*  "VITT FiscalSeq Stock": {
                 dir('vitt_fiscalseq_stock'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/vitt_fiscalseq_stock'
                 }
-             },
+             },*/
              "VITT CRM Selectphone": {
                 dir('odoo-honduras'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/vitt_crm_lead_selectphone'
