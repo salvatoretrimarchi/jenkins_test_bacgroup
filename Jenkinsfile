@@ -1,5 +1,5 @@
 node {
-    stage('Addons Integration') {
+    stage('Integrate Addons') {
         deleteDir()
         parallel (
             "Odoo Account": {
@@ -109,7 +109,7 @@ node {
              }*/
         )
         }
-        stage('Build Odoo Enterprise') {
+        stage('Integrate Odoo Enterprise') {
             
              parallel (
             "Odoo Core": {
@@ -127,6 +127,11 @@ node {
                 /* sh 'mkdir -p extra-addons'
                 sh 'find . -maxdepth 1 | grep -v extra-addons| xargs -i mv {} ./extra-addons' */
         }
+    stage('Deploy Container') {
+        
+        sh 'sudo lxc-create -t download -n ${JOB_NAME}-${BUILD_NUMBER} -- -d ubuntu -r xenial -a amd64'
+    
+    }
     
 }
 
