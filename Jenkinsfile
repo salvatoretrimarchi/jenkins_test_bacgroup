@@ -92,8 +92,8 @@ node {
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-partner'
                 }
              },
-             "Odoo Honduras": {
-                dir('odoo-honduras'){
+             "Odoo CRM": {
+                dir('odoo-crm'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-crm'
                 }
              },
