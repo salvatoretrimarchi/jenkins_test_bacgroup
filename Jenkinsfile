@@ -3,32 +3,32 @@ node {
         deleteDir()
         parallel (
             "Odoo Account": {
-                dir('extra-addons/Odoo-Account'){
+                dir('extra-addons/odoo-account'){
                     git branch: 't10.0', depth: '1', url: 'http://bitbucket.org/bacgroup/odoo-account.git'
                 }
              },
              "Odoo Fleet": {
-                dir('odoo-fleet'){
+                dir('extra-addons/odoo-fleet'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-fleet'
                 }
              },
              "Odoo Purchase": {
-                dir('odoo-purchaset'){
+                dir('extra-addons/odoo-purchaset'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-purchase'
                 }
              },
              "Odoo Base": {
-                dir('odoo-base'){
+                dir('extra-addons/odoo-base'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-base'
                 }
              },
              "Odoo Sale": {
-                dir('odoo-sale'){
+                dir('extra-addons/odoo-sale'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-sale'
                 }
              },
              "Odoo Panama Fiscal Printer": {
-                dir('odoo-panama-fiscal-printer'){
+                dir('extra-addons/odoo-panama-fiscal-printer'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-panama-fiscal-printer'
                 }
              },
@@ -38,47 +38,47 @@ node {
                 }
              },*/
              "Odoo Honduras": {
-                dir('odoo-honduras'){
+                dir('extra-addons/odoo-honduras'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-honduras'
                 }
              },
              "Odoo POS": {
-                dir('odoo-pos'){
+                dir('extra-addons/odoo-pos'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-pos'
                 }
              },
              "Odoo OCA": {
-                dir('odoo-oca'){
+                dir('extra-addons/odoo-oca'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-oca'
                 }
              },
              "Odoo Panama": {
-                dir('odoo-panama'){
+                dir('extra-addons/odoo-panama'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-panama'
                 }
              },
              "Odoo Eyl": {
-                dir('odoo-eyl'){
+                dir('extra-addons/odoo-eyl'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-eyl'
                 }
              },
              "Odoo Product": {
-                dir('odoo-product'){
+                dir('extra-addons/odoo-product'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-product'
                 }
              },
              "Odoo Stock": {
-                dir('odoo-stock'){
+                dir('extra-addons/odoo-stock'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-stock'
                 }
              },
              "Odoo Avis": {
-                dir('odoo-avis'){
+                dir('extra-addons/odoo-avis'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-avis'
                 }
              },
              "Odoo DrugStore": {
-                dir('odoo-drugstore'){
+                dir('extra-addons/odoo-drugstore'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-drugstore'
                 }
              },
@@ -88,12 +88,12 @@ node {
                 }
              },*/
              "Odoo Partner": {
-                dir('odoo-partner'){
+                dir('extra-addons/odoo-partner'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-partner'
                 }
              },
              "Odoo CRM": {
-                dir('odoo-crm'){
+                dir('extra-addons/odoo-crm'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-crm'
                 }
              }
