@@ -114,7 +114,7 @@ node {
              parallel (
             "Odoo Core": {
                 dir('odoo'){
-                    git branch: '10.0', depth: '1', url: 'https://github.com/bacgroup/odoo.git'
+                    sh 'git clone -b 10.0 --depth 1 https://github.com/bacgroup/odoo.git'
                 }
              },
              "Odoo Enterprise": {
