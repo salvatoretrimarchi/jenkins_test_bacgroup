@@ -1,5 +1,5 @@
 node {
-    stage('Integrate') {
+    stage('Addons Integration') {
         deleteDir()
         parallel (
             "Odoo Account": {
@@ -108,10 +108,25 @@ node {
                 }
              }*/
         )
-        stage('Configuration') {
+        }
+        stage('Build Odoo Enterprise') {
+            
+             parallel (
+            "Odoo Core": {
+                dir('odoo'){
+                    git branch: '10.0', depth: '1', url: 'https://github.com/bacgroup/odoo.git'
+                }
+             },
+             "Odoo Enterprise": {
+                dir('extra-addons/enterprise'){
+                    git branch: '10.0', depth: '1', url: 'https://github.com/bacgroup/enterprise.git'
+                }
+             },
+             )
+            
                 /* sh 'mkdir -p extra-addons'
                 sh 'find . -maxdepth 1 | grep -v extra-addons| xargs -i mv {} ./extra-addons' */
         }
-    }
+    
 }
 
