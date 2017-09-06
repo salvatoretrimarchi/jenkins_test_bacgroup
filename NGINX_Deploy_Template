@@ -1,0 +1,33 @@
+upstream BUILD_NUMBER {
+ server LXC_IP:SERVICE_PORT;
+}
+
+server {
+ listen RANDOM;
+ proxy_read_timeout 3600s;
+ proxy_connect_timeout 3600s;
+ proxy_send_timeout 3600s;
+ proxy_set_header X-Forwarded-Host $host;
+ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+ proxy_set_header X-Forwarded-Proto $scheme;
+ proxy_set_header X-Real-IP $remote_addr;
+ client_max_body_size 300M;
+ sendfile on;
+ send_timeout 3600s;
+
+
+ proxy_buffer_size 128k;
+ proxy_buffers 4 256k;
+ proxy_busy_buffers_size 256k;
+
+ access_log /var/log/nginx/odoo.access.log;
+ error_log /var/log/nginx/odoo.error.log;
+ 
+ location / {
+   proxy_redirect off;
+   proxy_pass http://BUILD_NUMBER;
+ }
+
+ gzip_types text/css text/less text/plain text/xml application/xml application/json application/javascript;
+ gzip on;
+}
