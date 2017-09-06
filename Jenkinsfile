@@ -4,7 +4,6 @@ pipeline {
 
     stages {
         stage('Build') {
-            steps {
                 echo 'Building..'
 
                 parallel (
@@ -17,7 +16,6 @@ pipeline {
                 
                 
                 
-            }
         }
         stage('Test') {
             steps {
