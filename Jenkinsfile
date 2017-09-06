@@ -130,6 +130,7 @@ node {
     stage('Deploy Container') {
         
         sh 'sudo lxc-create -t download -n "${BUILD_NUMBER}" -- -d ubuntu -r xenial -a amd64'
+        sh 'sudo lxc-start -n ${BUILD_NUMBER}'
     
     }
     
