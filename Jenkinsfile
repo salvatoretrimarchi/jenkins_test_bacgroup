@@ -6,8 +6,17 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                checkout scm
 
+                parallel (
+     "Odoo Argentina": {
+         dir('odoo-account'){
+             git branch: 't10.0', depth: '1', url: 'http://bitbucket.org/bacgroup/odoo-account.git'
+         }
+      },
+   )
+                
+                
+                
             }
         }
         stage('Test') {
