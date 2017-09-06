@@ -2,7 +2,7 @@ node {
     stage('Integrate') {
         deleteDir()
         parallel (
-            "Odoo Account": {
+            "extra-addons/Odoo Account": {
                 dir('Odoo-Account'){
                     git branch: 't10.0', depth: '1', url: 'http://bitbucket.org/bacgroup/odoo-account.git'
                 }
@@ -109,8 +109,8 @@ node {
              }*/
         )
         stage('Configuration') {
-                sh 'mkdir -p extra-addons'
-                sh 'find . -maxdepth 1 | grep -v extra-addons| xargs -i mv {} ./extra-addons'
+                /* sh 'mkdir -p extra-addons'
+                sh 'find . -maxdepth 1 | grep -v extra-addons| xargs -i mv {} ./extra-addons' */
         }
     }
 }
