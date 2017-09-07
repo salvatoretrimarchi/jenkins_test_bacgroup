@@ -152,7 +152,6 @@ node {
         
         echo "Esta IP se muestra desde Jenkins: ${LXC_IP}"
         
-        
         sh 'cp $HOME/NGINX_Deploy_Template .'
         sh "sed -i \"s/RANDOM/${PORT}/g\" NGINX_Deploy_Template"
         sh "sed -i \"s/BUILD_NUMBER/${JOB_BASE_NAME}-${BUILD_NUMBER}/g\" NGINX_Deploy_Template"
@@ -169,6 +168,10 @@ node {
         ).trim()
         
         echo "${ADDONSPATH}"
+        
+        sh "sudo lxc-attach -n VITT_HN_BETA-55 -- apt-get install gdebi-core -y"
+        sh "sudo lxc-attach -n VITT_HN_BETA-55 -- gdebi /opt/wkhtmltox-0.12.1_linux-trusty-amd64.deb -n"
+
         
     }
     
