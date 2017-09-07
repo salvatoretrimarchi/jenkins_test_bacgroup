@@ -188,6 +188,8 @@ node {
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- systemctl start odoo.service"
         sh "sudo /etc/init.d/nginx reload"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- systemctl status odoo.service"
+        
+        sh "tail -f /var/log/odoo/odoo-server.log"
 
 
 
