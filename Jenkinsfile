@@ -140,9 +140,9 @@ node {
         
         echo "Esta IP se muestra desde Jenkins: ${LXC_IP}"
         sh 'sudo mkdir -p /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust'
-        sh 'sudo rsync -v $HOME/wkhtmltox-0.12.1_linux-trusty-amd64.deb /var/lib/lxc/${BUILD_NUMBER}/rootfs/opt/'
-        sh 'sudo rsync -v odoo/odoo /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust/'
-        sh 'sudo rsync -v extra-addons /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust/'
+        sh 'sudo rsync -avP $HOME/wkhtmltox-0.12.1_linux-trusty-amd64.deb /var/lib/lxc/${BUILD_NUMBER}/rootfs/opt/'
+        sh 'sudo rsync -avP odoo/odoo /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust/'
+        sh 'sudo rsync -avP extra-addons /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust/'
         
         PORT=sh (
         script: 'port=1025; while netstat -atn | grep -q :$port; do port=$(expr $port + 1); done; echo $port',
