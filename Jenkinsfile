@@ -157,10 +157,16 @@ node {
         sh "sed -i \"s/LXC_IP/${LXC_IP}/g\" NGINX_Deploy_Template"
         sh "sudo mv NGINX_Deploy_Template /etc/nginx/sites-available/${BUILD_NUMBER}"
         sh "sudo ln -s /etc/nginx/sites-available/${BUILD_NUMBER} /etc/nginx/sites-enabled/${BUILD_NUMBER}"
-        sh 'ls -l'
-
-
-                
+        
+    }
+    stage('Configure Odoo') {
+     
+        ADDONSPATH=sh (
+        script: 'ls -d -1 -m /var/lib/lxc/49/rootfs/home/cust/extra-addons/*',
+        returnStdout: true
+        ).trim()
+        
+        echo "${ADDONSPATH}"
         
     }
     
