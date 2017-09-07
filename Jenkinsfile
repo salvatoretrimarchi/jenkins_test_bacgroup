@@ -31,7 +31,7 @@ node {
              },
              "Odoo Panama Fiscal Printer": {
                 dir('extra-addons/odoo-panama-fiscal-printer'){
-                    git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-panama-fiscal-printer'
+                    //git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-panama-fiscal-printer'
                 }
              },
              /* "Odoo fiscal printer": {
@@ -56,7 +56,7 @@ node {
              },
              "Odoo Panama": {
                 dir('extra-addons/odoo-panama'){
-                    git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-panama'
+                    //git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-panama'
                 }
              },
              "Odoo Eyl": {
