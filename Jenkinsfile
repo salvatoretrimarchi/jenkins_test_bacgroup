@@ -132,6 +132,11 @@ node {
         sh 'sudo lxc-create -t download -n "${BUILD_NUMBER}" -- -d ubuntu -r xenial -a amd64'
         sh 'sudo lxc-start -n ${BUILD_NUMBER} -d'
         sh 'sudo lxc-attach -n ${BUILD_NUMBER} -- ls -l'
+        LXC_IP=sh (
+        script: 'sudo lxc-ls --fancy --filter=${BUILD_NUMBER} --fancy-format IPV4 | tail -n1',
+        returnStdout: true
+        ).trim()
+        echo "Esta IP se muestra desde Jenkins: ${LXC_IP}"
         sh 'sudo rsync -v $HOME/wkhtmltox-0.12.1_linux-trusty-amd64.deb /var/lib/lxc/${BUILD_NUMBER}/rootfs/opt/'
         sh 'cp $HOME/NGINX_Deploy_Template .'
         sh 'sed -i "s/BUILD_NUMBER/${BUILD_NUMBER}/g" NGINX_Deploy_Template'
