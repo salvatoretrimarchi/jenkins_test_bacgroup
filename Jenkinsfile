@@ -137,16 +137,17 @@ node {
         script: 'sudo lxc-ls --fancy --filter=${BUILD_NUMBER} --fancy-format IPV4 | tail -n1',
         returnStdout: true
         ).trim()
-        PORT=sh (
-        script: 'port=1025; while netstat -atn | grep -q :$port; do port=$(expr $port + 1); done; echo $port',
-        returnStdout: true
-        ).trim()
         
         echo "Esta IP se muestra desde Jenkins: ${LXC_IP}"
         sh 'sudo mkdir -p /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust'
         sh 'sudo rsync -v $HOME/wkhtmltox-0.12.1_linux-trusty-amd64.deb /var/lib/lxc/${BUILD_NUMBER}/rootfs/opt/'
         sh 'sudo rsync -v odoo/odoo /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust/'
         sh 'sudo rsync -v extra-addons /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust/'
+        
+        PORT=sh (
+        script: 'port=1025; while netstat -atn | grep -q :$port; do port=$(expr $port + 1); done; echo $port',
+        returnStdout: true
+        ).trim()
         
         sh 'cp $HOME/NGINX_Deploy_Template .'
         sh "sed -i \"s/RANDOM/${PORT}/g\" NGINX_Deploy_Template"
