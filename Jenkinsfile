@@ -1,8 +1,8 @@
 node {
+    PROJECT_NAME="${JOB_BASE_NAME}-${BUILD_NUMBER}"
+    echo "${PROJECT_NAME}"
     stage('Integrate Addons') {
         deleteDir()
-        PROJECT_NAME="${JOB_BASE_NAME}-${BUILD_NUMBER}"
-        echo "${PROJECT_NAME}"
         parallel (
             "Odoo Account": {
                 dir('extra-addons/odoo-account'){
