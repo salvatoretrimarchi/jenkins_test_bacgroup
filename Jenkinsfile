@@ -129,6 +129,9 @@ node {
         }
     stage('Configure Container') {
         
+        PROJECT_NAME="${JOB_BASE_NAME}-${BUILD_NUMBER}"
+        echo "${PROJECT_NAME}"
+        
         sh 'sudo lxc-create -t download -n "${BUILD_NUMBER}" -- -d ubuntu -r xenial -a amd64'
         sh 'sudo lxc-start -n ${BUILD_NUMBER} -d'
         sh 'sudo lxc-attach -n ${BUILD_NUMBER} -- ls -l'
