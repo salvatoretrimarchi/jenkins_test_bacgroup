@@ -1,5 +1,6 @@
 node {
     stage('Integrate Addons') {
+        sh 'mv NGINX_Deploy_Template /tmp/'
         deleteDir()
         parallel (
             "Odoo Account": {
