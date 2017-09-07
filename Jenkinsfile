@@ -172,7 +172,7 @@ node {
         returnStdout: true
         ).trim()
         
-        sh "sed -i \"s/ODOO_MODULES/${ADDONSPATH}/g\" ODOO_Deploy_Template"
+        sh "sed -i \"s&ODOO_MODULES&${ADDONSPATH}&g\" ODOO_Deploy_Template"
 
         
         echo "${ADDONSPATH}"
