@@ -143,17 +143,20 @@ node {
         ).trim()
         
         echo "Esta IP se muestra desde Jenkins: ${LXC_IP}"
+        sh 'mkdir -p /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust'
         sh 'sudo rsync -v $HOME/wkhtmltox-0.12.1_linux-trusty-amd64.deb /var/lib/lxc/${BUILD_NUMBER}/rootfs/opt/'
+        sh 'sudo rsync -v odoo/odoo /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust/'
+        sh 'sudo rsync -v extra-addons /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust/'
+        
         sh 'cp $HOME/NGINX_Deploy_Template .'
-        
-
-        
         sh "sed -i \"s/RANDOM/${PORT}/g\" NGINX_Deploy_Template"
         sh "sed -i \"s/BUILD_NUMBER/${BUILD_NUMBER}/g\" NGINX_Deploy_Template"
         sh "sed -i \"s/LXC_IP/${LXC_IP}/g\" NGINX_Deploy_Template"
         sh "sudo mv NGINX_Deploy_Template /etc/nginx/sites-available/${BUILD_NUMBER}"
         sh "sudo ln -s /etc/nginx/sites-available/${BUILD_NUMBER} /etc/nginx/sites-enabled/${BUILD_NUMBER}"
-        sh 'pwd'
+        sh 'ls -l'
+
+
                 
         
     }
