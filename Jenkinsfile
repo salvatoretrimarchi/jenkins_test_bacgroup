@@ -159,6 +159,11 @@ node {
         sh "sudo mv NGINX_Deploy_Template /etc/nginx/sites-available/${JOB_BASE_NAME}-${BUILD_NUMBER}"
         sh "sudo ln -s /etc/nginx/sites-available/${JOB_BASE_NAME}-${BUILD_NUMBER} /etc/nginx/sites-enabled/${JOB_BASE_NAME}-${BUILD_NUMBER}"
         
+        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- adduser --system --quiet --shell=/bin/bash --home=odoo --gecos 'ODOO' --group odoo"
+        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- adduser odoo sudo"
+        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- mkdir /var/log/odoo"
+        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown odoo:odoo /var/log/odoo"
+        sh 'sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown odoo:odoo /home/cust'
     }
     stage('Configure Odoo') {
      
@@ -168,7 +173,7 @@ node {
         ).trim()
         
         echo "${ADDONSPATH}"
-        
+
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- apt-get update -y"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- apt-get upgrade -y"
         
@@ -183,9 +188,7 @@ node {
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- apt-get install node-clean-css -y"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- apt-get install node-less -y"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- apt-get install python-gevent -y"
-        
-        sh 'sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown odoo:odoo /home/cust'
-        
+                
         sh 'sudo rsync -avP $HOME/ODOO_SYSTEMD_TEMPLATE /var/lib/lxc/${JOB_BASE_NAME}-${BUILD_NUMBER}/rootfs/etc/systemd/system/odoo.service'
         sh 'sudo rsync -avP $HOME/ODOO_Deploy_Template /var/lib/lxc/${JOB_BASE_NAME}-${BUILD_NUMBER}/rootfs/etc/odoo-server.conf'
 
