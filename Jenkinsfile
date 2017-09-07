@@ -142,7 +142,7 @@ node {
         sh "sed -i \"s/BUILD_NUMBER/${BUILD_NUMBER}/g\" NGINX_Deploy_Template"
         sh "sed -i \"s/LXC_IP/${LXC_IP}/g\" NGINX_Deploy_Template"
         sh "sudo mv NGINX_Deploy_Template /etc/nginx/sites-available/${BUILD_NUMBER}"
-        sh "sudo ln -s /etc/nginx/sites-available/${BUILD_NUMBER} /etc/nginx/sites-enabled/${BUILD_NUMBER} ."
+        sh "sudo ln -s /etc/nginx/sites-available/${BUILD_NUMBER} /etc/nginx/sites-enabled/${BUILD_NUMBER}"
         sh 'pwd'
 
     
