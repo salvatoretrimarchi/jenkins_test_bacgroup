@@ -1,6 +1,8 @@
 node {
     stage('Integrate Addons') {
         deleteDir()
+        PROJECT_NAME="${JOB_BASE_NAME}-${BUILD_NUMBER}"
+        echo "${PROJECT_NAME}"
         parallel (
             "Odoo Account": {
                 dir('extra-addons/odoo-account'){
@@ -129,17 +131,14 @@ node {
         }
     stage('Configure Container') {
         
-        PROJECT_NAME="${JOB_BASE_NAME}-${BUILD_NUMBER}"
-        echo "${PROJECT_NAME}"
-        
-        sh 'sudo lxc-create -t download -n "${BUILD_NUMBER}" -- -d ubuntu -r xenial -a amd64'
-        sh 'sudo lxc-start -n ${BUILD_NUMBER} -d'
-        sh 'sudo lxc-attach -n ${BUILD_NUMBER} -- ls -l'
+        sh 'sudo lxc-create -t download -n "${PROJECT_NAME}" -- -d ubuntu -r xenial -a amd64'
+        sh 'sudo lxc-start -n ${PROJECT_NAME} -d'
+        sh 'sudo lxc-attach -n ${PROJECT_NAME} -- ls -l'
 
-        sh 'sudo mkdir -p /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust'
-        sh 'sudo rsync -avP $HOME/wkhtmltox-0.12.1_linux-trusty-amd64.deb /var/lib/lxc/${BUILD_NUMBER}/rootfs/opt/'
-        sh 'sudo rsync -avP odoo/odoo /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust/'
-        sh 'sudo rsync -avP extra-addons /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust/'
+        sh 'sudo mkdir -p /var/lib/lxc/${PROJECT_NAME}/rootfs/home/cust'
+        sh 'sudo rsync -avP $HOME/wkhtmltox-0.12.1_linux-trusty-amd64.deb /var/lib/lxc/${PROJECT_NAME}/rootfs/opt/'
+        sh 'sudo rsync -avP odoo/odoo /var/lib/lxc/${PROJECT_NAME}/rootfs/home/cust/'
+        sh 'sudo rsync -avP extra-addons /var/lib/lxc/${PROJECT_NAME}/rootfs/home/cust/'
         
         PORT=sh (
         script: 'port=1025; while netstat -atn | grep -q :$port; do port=$(expr $port + 1); done; echo $port',
@@ -147,7 +146,7 @@ node {
         ).trim()
             
         LXC_IP=sh (
-        script: 'sudo lxc-ls --fancy --filter=${BUILD_NUMBER} --fancy-format IPV4 | tail -n1',
+        script: 'sudo lxc-ls --fancy --filter=${PROJECT_NAME} --fancy-format IPV4 | tail -n1',
         returnStdout: true
         ).trim()
         
@@ -156,10 +155,10 @@ node {
         
         sh 'cp $HOME/NGINX_Deploy_Template .'
         sh "sed -i \"s/RANDOM/${PORT}/g\" NGINX_Deploy_Template"
-        sh "sed -i \"s/BUILD_NUMBER/${BUILD_NUMBER}/g\" NGINX_Deploy_Template"
+        sh "sed -i \"s/BUILD_NUMBER/${PROJECT_NAME}/g\" NGINX_Deploy_Template"
         sh "sed -i \"s/LXC_IP/${LXC_IP}/g\" NGINX_Deploy_Template"
-        sh "sudo mv NGINX_Deploy_Template /etc/nginx/sites-available/${BUILD_NUMBER}"
-        sh "sudo ln -s /etc/nginx/sites-available/${BUILD_NUMBER} /etc/nginx/sites-enabled/${BUILD_NUMBER}"
+        sh "sudo mv NGINX_Deploy_Template /etc/nginx/sites-available/${PROJECT_NAME}"
+        sh "sudo ln -s /etc/nginx/sites-available/${PROJECT_NAME} /etc/nginx/sites-enabled/${PROJECT_NAME}"
         
     }
     stage('Configure Odoo') {
