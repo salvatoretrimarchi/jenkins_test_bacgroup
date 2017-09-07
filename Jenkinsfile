@@ -168,7 +168,7 @@ node {
     stage('Configure Odoo') {
      
         ADDONSPATH=sh (
-        script: "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- echo `ls -d -1 -m /home/cust/extra-addons/*` | sed 's/ //g'",
+        script: "echo `sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- ls -d -1 -m /home/cust/extra-addons/*` | sed 's/ //g'",
         returnStdout: true
         ).trim()
         
