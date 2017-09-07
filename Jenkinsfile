@@ -132,13 +132,7 @@ node {
         sh 'sudo lxc-create -t download -n "${BUILD_NUMBER}" -- -d ubuntu -r xenial -a amd64'
         sh 'sudo lxc-start -n ${BUILD_NUMBER} -d'
         sh 'sudo lxc-attach -n ${BUILD_NUMBER} -- ls -l'
-        
-        LXC_IP=sh (
-        script: 'sudo lxc-ls --fancy --filter=${BUILD_NUMBER} --fancy-format IPV4 | tail -n1',
-        returnStdout: true
-        ).trim()
-        
-        echo "Esta IP se muestra desde Jenkins: ${LXC_IP}"
+
         sh 'sudo mkdir -p /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust'
         sh 'sudo rsync -avP $HOME/wkhtmltox-0.12.1_linux-trusty-amd64.deb /var/lib/lxc/${BUILD_NUMBER}/rootfs/opt/'
         sh 'sudo rsync -avP odoo/odoo /var/lib/lxc/${BUILD_NUMBER}/rootfs/home/cust/'
@@ -148,6 +142,14 @@ node {
         script: 'port=1025; while netstat -atn | grep -q :$port; do port=$(expr $port + 1); done; echo $port',
         returnStdout: true
         ).trim()
+            
+        LXC_IP=sh (
+        script: 'sudo lxc-ls --fancy --filter=${BUILD_NUMBER} --fancy-format IPV4 | tail -n1',
+        returnStdout: true
+        ).trim()
+        
+        echo "Esta IP se muestra desde Jenkins: ${LXC_IP}"
+        
         
         sh 'cp $HOME/NGINX_Deploy_Template .'
         sh "sed -i \"s/RANDOM/${PORT}/g\" NGINX_Deploy_Template"
