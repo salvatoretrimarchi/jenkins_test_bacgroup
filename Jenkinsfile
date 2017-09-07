@@ -140,6 +140,8 @@ node {
         sh 'sudo rsync -v $HOME/wkhtmltox-0.12.1_linux-trusty-amd64.deb /var/lib/lxc/${BUILD_NUMBER}/rootfs/opt/'
         sh 'cp $HOME/NGINX_Deploy_Template .'
         sh 'sed -i "s/BUILD_NUMBER/${BUILD_NUMBER}/g" NGINX_Deploy_Template'
+        sh 'sed -i "s/LXC_IP/${LXC_IP}/g" NGINX_Deploy_Template'
+
     
     }
     
