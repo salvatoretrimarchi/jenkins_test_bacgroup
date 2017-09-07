@@ -163,8 +163,6 @@ node {
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- adduser odoo sudo"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- mkdir /var/log/odoo"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown odoo:odoo /var/log/odoo -R"
-        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown odoo:odoo /etc/odoo-server.conf -R"
-        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown odoo:odoo /etc/systemd/system/odoo.service -R"
         sh 'sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown odoo:odoo /home/cust -R'
         
     }
@@ -196,6 +194,8 @@ node {
         sh 'sudo rsync -avP $HOME/ODOO_Deploy_Template /var/lib/lxc/${JOB_BASE_NAME}-${BUILD_NUMBER}/rootfs/etc/odoo-server.conf'
         sh "sudo sed -i \"s&ODOO_MODULES&${ADDONSPATH}&g\" /var/lib/lxc/${JOB_BASE_NAME}-${BUILD_NUMBER}/rootfs/etc/odoo-server.conf"
 
+        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown odoo:odoo /etc/odoo-server.conf -R"
+        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown odoo:odoo /etc/systemd/system/odoo.service -R"
         
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- systemctl daemon-reload"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- systemctl enable odoo.service"
