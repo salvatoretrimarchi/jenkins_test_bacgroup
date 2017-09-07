@@ -172,6 +172,9 @@ node {
         returnStdout: true
         ).trim()
         
+        sh "sed -i \"s/ODOO_MODULES/${ADDONSPATH}/g\" ODOO_Deploy_Template"
+
+        
         echo "${ADDONSPATH}"
 
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- apt-get update -y"
