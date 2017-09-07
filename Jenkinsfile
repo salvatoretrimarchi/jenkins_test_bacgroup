@@ -84,11 +84,6 @@ node {
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-drugstore'
                 }
              },
-             /* "VITT Icons": {
-                dir('vitt-icons'){
-                    git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/vitt_icons'
-                }
-             },*/
              "Odoo Partner": {
                 dir('extra-addons/odoo-partner'){
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-partner'
@@ -99,16 +94,6 @@ node {
                     git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/odoo-crm'
                 }
              }
-            /*  "VITT FiscalSeq Stock": {
-                dir('vitt_fiscalseq_stock'){
-                    git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/vitt_fiscalseq_stock'
-                }
-             },*/
-             /* "VITT CRM Selectphone": {
-                dir('odoo-honduras'){
-                    git branch: 't10.0', depth: '1', url: 'https://bitbucket.org/bacgroup/vitt_crm_lead_selectphone'
-                }
-             }*/
         )
         }
         stage('Integrate Odoo Enterprise') {
