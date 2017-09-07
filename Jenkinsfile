@@ -164,7 +164,7 @@ node {
     stage('Configure Odoo') {
      
         ADDONSPATH=sh (
-        script: 'sudo ls -d -1 -m /var/lib/lxc/49/rootfs/home/cust/extra-addons/*',
+        script: 'sudo ls -d -1 -m /var/lib/lxc/${JOB_BASE_NAME}-${BUILD_NUMBER}/rootfs/home/cust/extra-addons/*',
         returnStdout: true
         ).trim()
         
