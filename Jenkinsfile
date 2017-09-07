@@ -159,7 +159,7 @@ node {
         sh "sudo mv NGINX_Deploy_Template /etc/nginx/sites-available/${JOB_BASE_NAME}-${BUILD_NUMBER}"
         sh "sudo ln -s /etc/nginx/sites-available/${JOB_BASE_NAME}-${BUILD_NUMBER} /etc/nginx/sites-enabled/${JOB_BASE_NAME}-${BUILD_NUMBER}"
         
-        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- adduser --system --quiet --shell=/bin/bash --home=odoo --gecos 'ODOO' --group odoo"
+        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- adduser --system --quiet --shell=/bin/bash --home=/home/odoo --gecos 'ODOO' --group odoo"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- adduser odoo sudo"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- mkdir /var/log/odoo"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown odoo:odoo /var/log/odoo"
