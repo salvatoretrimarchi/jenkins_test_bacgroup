@@ -162,8 +162,8 @@ node {
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- adduser --system --quiet --shell=/bin/bash --home=/home/odoo --gecos 'ODOO' --group odoo"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- adduser odoo sudo"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- mkdir /var/log/odoo"
-        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown odoo:odoo /var/log/odoo"
-        sh 'sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown odoo:odoo /home/cust'
+        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown odoo:odoo /var/log/odoo -R"
+        sh 'sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown odoo:odoo /home/cust -R'
     }
     stage('Configure Odoo') {
      
