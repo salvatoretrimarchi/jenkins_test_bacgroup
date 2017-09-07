@@ -127,25 +127,35 @@ node {
                 /* sh 'mkdir -p extra-addons'
                 sh 'find . -maxdepth 1 | grep -v extra-addons| xargs -i mv {} ./extra-addons' */
         }
-    stage('Deploy Container') {
+    stage('Configure Container') {
         
         sh 'sudo lxc-create -t download -n "${BUILD_NUMBER}" -- -d ubuntu -r xenial -a amd64'
         sh 'sudo lxc-start -n ${BUILD_NUMBER} -d'
         sh 'sudo lxc-attach -n ${BUILD_NUMBER} -- ls -l'
+        
         LXC_IP=sh (
         script: 'sudo lxc-ls --fancy --filter=${BUILD_NUMBER} --fancy-format IPV4 | tail -n1',
         returnStdout: true
         ).trim()
+        PORT=sh (
+        script: 'port=1025; while netstat -atn | grep -q :$port; do port=$(expr $port + 1); done; echo $port',
+        returnStdout: true
+        ).trim()
+        
         echo "Esta IP se muestra desde Jenkins: ${LXC_IP}"
         sh 'sudo rsync -v $HOME/wkhtmltox-0.12.1_linux-trusty-amd64.deb /var/lib/lxc/${BUILD_NUMBER}/rootfs/opt/'
         sh 'cp $HOME/NGINX_Deploy_Template .'
+        
+
+        
+        sh "sed -i \"s/RANDOM/${PORT}/g\" NGINX_Deploy_Template"
         sh "sed -i \"s/BUILD_NUMBER/${BUILD_NUMBER}/g\" NGINX_Deploy_Template"
         sh "sed -i \"s/LXC_IP/${LXC_IP}/g\" NGINX_Deploy_Template"
         sh "sudo mv NGINX_Deploy_Template /etc/nginx/sites-available/${BUILD_NUMBER}"
         sh "sudo ln -s /etc/nginx/sites-available/${BUILD_NUMBER} /etc/nginx/sites-enabled/${BUILD_NUMBER}"
         sh 'pwd'
-
-    
+                
+        
     }
     
 }
