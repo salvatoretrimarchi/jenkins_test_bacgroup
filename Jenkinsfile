@@ -136,7 +136,6 @@ node {
         script: 'sudo lxc-ls --fancy --filter=${BUILD_NUMBER} --fancy-format IPV4 | tail -n1',
         returnStdout: true
         ).trim()
-        sh 'sleep 5'
         echo "Esta IP se muestra desde Jenkins: ${LXC_IP}"
         sh 'sudo rsync -v $HOME/wkhtmltox-0.12.1_linux-trusty-amd64.deb /var/lib/lxc/${BUILD_NUMBER}/rootfs/opt/'
         sh 'cp $HOME/NGINX_Deploy_Template .'
