@@ -188,7 +188,7 @@ node {
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- systemctl start odoo.service"
         sh "sudo /etc/init.d/nginx reload"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- systemctl status odoo.service"
-        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- apt-get install nginx"
+        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- apt-get -y install nginx"
     }
     stage('Prepare Artifact')
     {  
