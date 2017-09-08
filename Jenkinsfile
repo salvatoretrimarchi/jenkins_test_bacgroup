@@ -192,7 +192,7 @@ node {
     stage('Logging Test') {
         
         echo "Your Odoo Instance is Ready :) Please use ${PORT} to Test"
-        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- tail -f /var/log/odoo/odoo-server.log"
+        //sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- tail -f /var/log/odoo/odoo-server.log"
         
     }
     
