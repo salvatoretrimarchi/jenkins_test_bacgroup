@@ -194,7 +194,7 @@ node {
         sh "sudo /bin/mount -o ro,noexec,noload /dev/datto0 /hotcopy"
     }
     stage('Archive Artifact') {
-        sh "tar -ccvf /home/jenkins/workspace/${JOB_NAME}/${JOB_BASE_NAME}-${BUILD_NUMBER}.tar /hotcopy/var/lib/lxc/${JOB_BASE_NAME}-${BUILD_NUMBER} && pbzip2 -9f /home/jenkins/workspace/${JOB_NAME}/${JOB_BASE_NAME}-${BUILD_NUMBER}.tar"
+        sh "sudo tar -ccvf /home/jenkins/workspace/${JOB_NAME}/${JOB_BASE_NAME}-${BUILD_NUMBER}.tar /hotcopy/var/lib/lxc/${JOB_BASE_NAME}-${BUILD_NUMBER} && sudo pbzip2 -9f /home/jenkins/workspace/${JOB_NAME}/${JOB_BASE_NAME}-${BUILD_NUMBER}.tar"
     }
     stage('Destoy Hotcopy') {
         sh "sudo /bin/umount /hotcopy"
