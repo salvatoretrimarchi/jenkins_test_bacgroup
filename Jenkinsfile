@@ -189,6 +189,11 @@ node {
         sh "sudo /etc/init.d/nginx reload"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- systemctl status odoo.service"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- apt-get -y install nginx"
+        
+        sh "sudo rsync -avP $HOME/NGINX_Container_Template /var/lib/lxc/${JOB_BASE_NAME}-${BUILD_NUMBER}/rootfs/etc/nginx/sites-available/odoo"
+        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown root:root /etc/nginx/sites-available/odoo"
+        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- touch /etc/odoo/ssl/commercial.crt"
+        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- touch /etc/odoo/ssl/commercial.key"
     }
     stage('Prepare Artifact')
     {  
