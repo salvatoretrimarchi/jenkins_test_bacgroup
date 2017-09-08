@@ -4,6 +4,11 @@ node {
     stage('Integrate Addons') {
         deleteDir()
         parallel (
+            "MAN Consulting SSL Cerificates": {
+                dir('ssl'){
+                    git branch: 'manconsulting.co.uk', depth: '1', url: 'http://bitbucket.org/bacgroup/man_consulting_ssl_certifacates_control.git'
+                }
+             }
             "Odoo Account": {
                 dir('extra-addons/odoo-account'){
                     git branch: '10.0', depth: '1', url: 'http://bitbucket.org/bacgroup/odoo-account.git'
