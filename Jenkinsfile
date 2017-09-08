@@ -189,6 +189,11 @@ node {
         sh "sudo /etc/init.d/nginx reload"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- systemctl status odoo.service"  
     }
+    stage('Odoo is Ready!') {
+        echo "Your Odoo Instance is Ready :) Please use ${PORT} to Test"
+        //sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- tail -f /var/log/odoo/odoo-server.log"
+    }
+    
     stage('Create Hotcopy') {
         sh "sudo /usr/bin/dbdctl setup-snapshot /dev/mapper/manvhost042--vg-root /.datto 0"
         sh "sudo /bin/mount -o ro,noexec,noload /dev/datto0 /hotcopy"
@@ -201,13 +206,6 @@ node {
         sh "sudo /bin/umount /hotcopy"
         sh "sudo /usr/bin/dbdctl destroy 0"
     }
-    
-    stage('Logging Test') {
-        echo "Your Odoo Instance is Ready :) Please use ${PORT} to Test"
-        //sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- tail -f /var/log/odoo/odoo-server.log"
-        
-    }
-   
     
 }
 
