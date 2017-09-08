@@ -175,7 +175,7 @@ node {
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- apt-get install node-less -y"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- apt-get install python-gevent -y"
                 
-        sh 'sudo rsync -avP $HOME/ODOO_SYSTEMD_TEMPLATE /var/lib/lxc/${JOB_BASE_NAME}-${BUILD_NUMBER}/rootfs/etc/systemd/system/odoo.service'
+        sh 'sudo rsync -avP $HOME/ODOO_SYSTEMD_TEMPLATE_STABLE_BRANCH /var/lib/lxc/${JOB_BASE_NAME}-${BUILD_NUMBER}/rootfs/etc/systemd/system/odoo.service'
         sh 'sudo rsync -avP $HOME/ODOO_Deploy_Template /var/lib/lxc/${JOB_BASE_NAME}-${BUILD_NUMBER}/rootfs/etc/odoo-server.conf'
         sh "sudo sed -i \"s&ODOO_MODULES&${ADDONSPATH}&g\" /var/lib/lxc/${JOB_BASE_NAME}-${BUILD_NUMBER}/rootfs/etc/odoo-server.conf"
 
