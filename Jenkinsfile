@@ -195,16 +195,18 @@ node {
     }
     
     stage('Create Hotcopy') {
-        sh "sudo /usr/bin/dbdctl setup-snapshot /dev/mapper/manvhost042--vg-root /.datto 0"
-        sh "sudo /bin/mount -o ro,noexec,noload /dev/datto0 /hotcopy"
+        sh 'sudo mkdir -p /${JOB_BASE_NAME}-${BUILD_NUMBER}'
+        sh "sudo /usr/bin/dbdctl setup-snapshot /dev/mapper/manvhost042--vg-root /.datto ${BUILD_NUMBER}"
+        sh "sudo /bin/mount -o ro,noexec,noload /dev/datto${BUILD_NUMBER} /${JOB_BASE_NAME}-${BUILD_NUMBER}"
     }
     stage('Archive Artifact') {
         sh "sudo tar -ccvf /home/jenkins/workspace/${JOB_NAME}/${JOB_BASE_NAME}-${BUILD_NUMBER}.tar /hotcopy/var/lib/lxc/${JOB_BASE_NAME}-${BUILD_NUMBER} && sudo pbzip2 -9f /home/jenkins/workspace/${JOB_NAME}/${JOB_BASE_NAME}-${BUILD_NUMBER}.tar"
         archiveArtifacts '*.bz2'
     }
     stage('Destoy Hotcopy') {
-        sh "sudo /bin/umount /hotcopy"
-        sh "sudo /usr/bin/dbdctl destroy 0"
+        sh "sudo /bin/umount /${JOB_BASE_NAME}-${BUILD_NUMBER}"
+        sh "sudo /usr/bin/dbdctl destroy ${BUILD_NUMBER}"
+        sh "rm -rf /${JOB_BASE_NAME}-${BUILD_NUMBER}"
     }
     
 }
