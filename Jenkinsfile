@@ -192,8 +192,8 @@ node {
         
         sh "sudo rsync -avP $HOME/NGINX_Container_Template /var/lib/lxc/${JOB_BASE_NAME}-${BUILD_NUMBER}/rootfs/etc/nginx/sites-available/odoo"
         sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- chown root:root /etc/nginx/sites-available/odoo"
-        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- touch /etc/odoo/ssl/commercial.crt"
-        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- touch /etc/odoo/ssl/commercial.key"
+        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- touch /etc/ssl/certs/commercial.crt"
+        sh "sudo lxc-attach -n ${JOB_BASE_NAME}-${BUILD_NUMBER} -- touch /etc/ssl/certs/commercial.key"
     }
     stage('Prepare Artifact')
     {  
