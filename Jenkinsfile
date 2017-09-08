@@ -195,6 +195,7 @@ node {
     }
     stage('Archive Artifact') {
         sh "sudo tar -ccvf /home/jenkins/workspace/${JOB_NAME}/${JOB_BASE_NAME}-${BUILD_NUMBER}.tar /hotcopy/var/lib/lxc/${JOB_BASE_NAME}-${BUILD_NUMBER} && sudo pbzip2 -9f /home/jenkins/workspace/${JOB_NAME}/${JOB_BASE_NAME}-${BUILD_NUMBER}.tar"
+        archiveArtifacts '*.bz2'
     }
     stage('Destoy Hotcopy') {
         sh "sudo /bin/umount /hotcopy"
